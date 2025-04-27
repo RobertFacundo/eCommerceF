@@ -1,10 +1,24 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
+import axios from 'axios'
 import './App.css'
 ///!!
 function App() {
   const [count, setCount] = useState(0)
+  const [products, setProducts] = useState([]);
+
+  useEffect(()=>{
+    axios.get('http://127.0.0.1:8000/api/products/')
+    .then(response => {
+      setProducts(response.data)
+    })
+    .catch(error => {
+      console.error('Error al obtener productos:', error);
+    })
+  }, [])
+
+
 
   return (
     <>
@@ -17,6 +31,17 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <div>
+        {products.length > 0 ? (
+          <ul>
+            {products.map((products, index) => (
+              <li key={index}>{products.name}</li>
+            ))}
+          </ul>
+        ) : (
+          <p>Products not found</p>
+        )}
+      </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
           count is {count}
