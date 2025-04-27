@@ -8,16 +8,20 @@ function App() {
   const [count, setCount] = useState(0)
   const [products, setProducts] = useState([]);
 
-  useEffect(()=>{
-    axios.get('http://127.0.0.1:8000/api/products/')
-    .then(response => {
-      setProducts(response.data)
-    })
-    .catch(error => {
-      console.error('Error al obtener productos:', error);
-    })
-  }, [])
+  useEffect(() => {
 
+    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+      ? 'http://127.0.0.1:8000/api/products/'  // URL local
+      : 'https://ecommerceb-tc17.onrender.com/api/products/';
+
+    axios.get(apiUrl)
+      .then(response => {
+        setProducts(response.data)
+      })
+      .catch(error => {
+        console.error('Error al obtener productos:', error);
+      })
+  }, [])
 
 
   return (
