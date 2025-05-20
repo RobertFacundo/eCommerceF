@@ -1,10 +1,18 @@
 import React from "react";
+import { useAuth } from "../hooks/useAuth";
 
-const Home = ()=>{
+const Home = () => {
+    const { user } = useAuth();
+
+    if (!user) {
+        return <p>No estás logueado.</p>;
+    }
+
     return (
-        <>
-        <h1>Home</h1>
-        </>
+        <div>
+            <h1>Bienvenido, {user.username}</h1>
+            <p>Tu Token es: {user.token}</p>
+        </div>
     )
 };
 

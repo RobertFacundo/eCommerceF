@@ -1,10 +1,12 @@
 import React from "react";
+import LoginRegister from "../components/LoginRegister";
 
 
-const Auth = ()=>{
+const Auth = () => {
     return (
         <>
-        <h1>Authentciationview</h1>
+            <h1>Authentciation</h1>
+            <LoginRegister />
         </>
     )
 };
