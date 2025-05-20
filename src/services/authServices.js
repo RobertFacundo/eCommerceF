@@ -5,6 +5,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL;
 export const postData = async (endpoint, data) => {
     try {
         const res = await axios.post(`${API_BASE_URL}api/${endpoint}/`, data);
+        console.log(res, 'log del service')
         return res.data;
     } catch (error) {
         console.error("❌ Error en postData:", error);

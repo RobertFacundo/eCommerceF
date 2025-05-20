@@ -4,13 +4,19 @@ import { postData } from "../services/authServices";
 export function useAuth(){
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
+
     const [user, setUser] = useState(null);
+    const [cart, setCart] = useState(null);
+    const [token, setToken] = useState(null)
 
     useEffect(()=>{
         const storedUser = localStorage.getItem('user');
-        if(storedUser){
-            setUser(JSON.parse(storedUser));
-        }
+        const storedCart = localStorage.getItem('cart');
+        const storedToken = localStorage.getItem('token');
+
+        if(storedUser) setUser(JSON.parse(storedUser));
+        if(storedCart) setCart(JSON.parse(storedCart));
+        if(storedToken) setToken(storedToken);
     }, [])
 
     const authenticate = async (type, data) =>{
@@ -20,8 +26,13 @@ export function useAuth(){
             const response = await postData(type, data);
             setLoading(false);
 
-            setUser(response)
-            localStorage.setItem("user", JSON.stringify(response));
+            setUser(response.user)
+            localStorage.setItem("user", JSON.stringify(response.user));
+
+            setCart(response.cart)
+            localStorage.setItem('cart', JSON.stringify(response.cart))
+
+            localStorage.setItem('token', response.token)
 
             console.log(response, 'log del hook')
 
@@ -35,7 +46,12 @@ export function useAuth(){
 
     const logOut = ()=>{
         setUser(null)
+        setCart(null);
+        setToken(null)
+
         localStorage.removeItem('user');
+        localStorage.removeItem('cart');
+        localStorage.removeItem('token');
     };
 
     return {
@@ -44,6 +60,8 @@ export function useAuth(){
         logOut,
         loading,
         error,
-        user
+        user,
+        cart,
+        token
     };
 }

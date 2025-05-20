@@ -49,7 +49,6 @@ const LoginRegister = ()=>{
                 navigate("/Home")
             }
 
-            console.log('AuthSuccess', loginRes)
         }catch (error){
             console.error("❌ Auth error:", error);
         }
