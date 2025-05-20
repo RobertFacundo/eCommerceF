@@ -10,7 +10,7 @@ export const postData = async (endpoint, data) => {
         console.error("❌ Error en postData:", error);
         // lanzamos el mensaje de error del backend o un mensaje genérico
         throw new Error(
-             JSON.stringify(error.response?.data) || "Error inesperado en la autenticación"
+             JSON.stringify(error.response?.data) || "Unexpected Error!"
         );
     }
 }
