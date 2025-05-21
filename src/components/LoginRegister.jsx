@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import { useAuth } from "../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../contexts/AuthContext";
 
 
 const LoginRegister = ()=>{
-    const {login, register, loading, error} = useAuth();
+    const {login, register, loading, error} = useAuthContext();
     const navigate = useNavigate();
 
     const [isRegister, setIsRegister] = useState(false);

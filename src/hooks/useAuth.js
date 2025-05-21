@@ -8,6 +8,7 @@ export function useAuth(){
     const [user, setUser] = useState(null);
     const [cart, setCart] = useState(null);
     const [token, setToken] = useState(null)
+    const [isInitializing, setIsInitializing] = useState(true)
 
     useEffect(()=>{
         const storedUser = localStorage.getItem('user');
@@ -17,7 +18,15 @@ export function useAuth(){
         if(storedUser) setUser(JSON.parse(storedUser));
         if(storedCart) setCart(JSON.parse(storedCart));
         if(storedToken) setToken(storedToken);
+
+        setIsInitializing(false)
     }, [])
+
+    useEffect(()=>{
+        if(cart !== null){
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+    }, [cart])
 
     const authenticate = async (type, data) =>{
         setLoading(true);
@@ -62,6 +71,8 @@ export function useAuth(){
         error,
         user,
         cart,
-        token
+        token, 
+        setCart,
+        isInitializing
     };
 }
