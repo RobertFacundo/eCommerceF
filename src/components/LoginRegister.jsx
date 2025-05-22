@@ -1,10 +1,74 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthContext";
+import styled from "styled-components";
+
+const Card = styled.div`
+  background-color: rgba(255, 255, 255, 0.95);
+  padding: 2rem;
+  border-radius: 15px;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+`;
+
+const Form = styled.form`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+`;
+
+const Title = styled.h2`
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  color: #2c3e50;
+  text-align: center;
+  font-weight: 700;
+`;
+
+const Input = styled.input`
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+`;
+
+const Button = styled.button`
+  padding: 0.8rem;
+  background-color: #3f5145;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:disabled {
+    background-color: #95a5a6;
+  }
+
+  &:hover:not(:disabled){
+    background-color: #1f2923;
+  }
+`;
+
+const Toggle = styled.button`
+  background: none;
+  border: none;
+  color: #3498db;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-left: 0.5rem;
+`;
+
+const ErrorText = styled.p`
+  color: red;
+`;
 
 
-const LoginRegister = ()=>{
-    const {login, register, loading, error} = useAuthContext();
+const LoginRegister = () => {
+    const { login, register, loading, error } = useAuthContext();
     const navigate = useNavigate();
 
     const [isRegister, setIsRegister] = useState(false);
@@ -12,101 +76,101 @@ const LoginRegister = ()=>{
     const [formData, setFormData] = useState({
         username: "",
         password: "",
-        email:"",
+        email: "",
     });
 
-    const handleChange = (e)=>{
-        setFormData(prev=>({
+    const handleChange = (e) => {
+        setFormData(prev => ({
             ...prev,
             [e.target.name]: e.target.value
         }));
     };
 
-    const handleSubmit = async (e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault();
 
-        try{
+        try {
             const payload = {
                 username: formData.username,
                 password: formData.password,
             };
-            if(isRegister) payload.email = formData.email;
+            if (isRegister) payload.email = formData.email;
 
             console.log("📦 Payload enviado:", payload);
 
-            if(isRegister){
-              await register(payload);
+            if (isRegister) {
+                await register(payload);
 
-              const loginRes = await login({
-                username: payload.username,
-                password: payload.password,
-              });
-              console.log("✅ Login después del registro", loginRes);
-              navigate('/Home');
-            }else{
+                const loginRes = await login({
+                    username: payload.username,
+                    password: payload.password,
+                });
+                console.log("✅ Login después del registro", loginRes);
+                navigate('/Home');
+            } else {
                 const loginRes = await login(payload);
                 console.log("✅ Login directo", loginRes);
                 navigate("/Home")
             }
 
-        }catch (error){
+        } catch (error) {
             console.error("❌ Auth error:", error);
         }
     };
 
     return (
-        <div style={{ maxWidth: "400px", margin: "0 auto" }}>
-            <h2>{isRegister ? "Register" : "Login"}</h2>
+        <Card style={{ maxWidth: "400px", margin: "0 auto" }}>
+            <Title>{isRegister ? "Register" : "Login"}</Title>
 
-            <form onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="username"
-                  placeholder="Username"
-                  value={formData.username}
-                  onChange={handleChange}
-                  required
+            <Form onSubmit={handleSubmit}>
+                <Input
+                    type="text"
+                    name="username"
+                    placeholder="Username"
+                    value={formData.username}
+                    onChange={handleChange}
+                    required
                 />
                 <br />
 
                 {isRegister && (
-                  <>
-                    <input
-                      type="email"
-                      name="email"
-                      placeholder="Email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      required
-                    />
-                    <br />
-                  </>
+                    <>
+                        <Input
+                            type="email"
+                            name="email"
+                            placeholder="Email"
+                            value={formData.email}
+                            onChange={handleChange}
+                            required
+                        />
+                        <br />
+                    </>
                 )}
 
-                <input 
-                  type="password" 
-                  name="password"
-                  placeholder="password"
-                  value={formData.password}
-                  onChange={handleChange}
-                  required  
+                <Input
+                    type="password"
+                    name="password"
+                    placeholder="Password"
+                    value={formData.password}
+                    onChange={handleChange}
+                    required
                 />
                 <br />
 
-                <button type="submit" disabled={loading}>
+                <Button type="submit" disabled={loading}>
                     {loading ? "Processing..." : isRegister ? "Register" : "Login"}
-                </button>
-            </form>
+                </Button>
+            </Form>
 
-            {error && <p style={{color: "red"}}>{error}</p>}
+            {error && <ErrorText style={{ color: "red" }}>{error}</ErrorText>}
 
             <p>
                 {isRegister ? 'Already have an account?' : "Don't have an account?"}{""}
-                <button type="button" onClick={()=> setIsRegister(!isRegister)}>
-                    {isRegister ? 'Login': 'Register'}
-                </button>
+                <Toggle type="button" onClick={() => setIsRegister(!isRegister)}>
+                    {isRegister ? 'Login' : 'Register'}
+                </Toggle>
             </p>
-        </div>
+        </Card>
     )
 }
 
