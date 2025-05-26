@@ -157,7 +157,6 @@ src/
 - **Context API** – Auth and global state management
 - **Services** – Decoupled service layer for API logic
 - **Component-Driven Architecture** – UI and logic separation for scalability
-```
 
 ----
 
