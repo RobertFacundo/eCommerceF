@@ -14,6 +14,10 @@ export const ImageSection = styled.div`
   background-size: cover;
   background-position: center;
   box-shadow: inset 35px 0 40px -20px rgba(0, 0, 0, 0.8);
+
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const ContentSection = styled.div`

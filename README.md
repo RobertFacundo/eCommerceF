@@ -40,7 +40,7 @@ npm run dev
 
 # Frontend
 
-This project is built with React, and utilizes React Router to handle navigation across different views.
+This project (completely responsive) is built with React, and utilizes React Router to handle navigation across different views.
 
 The eCommerce flow starts with an authentication screen, where users can register or log in. Upon successful authentication, they are redirected to the home page, where a list of products is rendered. From there, users can:
 
@@ -53,6 +53,9 @@ Access the shopping cart to review selected items.
 Proceed to checkout, where the order is confirmed.
 
 Finally, they are redirected to a success screen indicating the purchase was completed.
+
+## Responsive Design
+The entire project is completely responsive, ensuring an optimal user experience on all devices, from mobile phones and tablets to desktop screens.
 
 ## Project Structure and Technologies
 The project is designed to be scalable and modular, using:

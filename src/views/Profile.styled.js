@@ -18,6 +18,10 @@ export const ImageSection = styled.div`
   background-size: cover;
   background-position: center;
   box-shadow: inset 35px 0 40px -20px rgba(0, 0, 0, 0.8);
+  
+  @media (max-width: 768px) {
+    display: none;
+  }
 `;
 
 export const Content = styled.div`
@@ -52,7 +56,7 @@ export const TitleSection = styled.div`
   border-bottom: 2px solid #ccc;
 `;
 
- export const ClearButton = styled.button`
+export const ClearButton = styled.button`
   background: none;
   border: none;
   color: #e74c3c;

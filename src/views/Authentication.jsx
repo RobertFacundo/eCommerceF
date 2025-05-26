@@ -10,6 +10,11 @@ const AuthWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 1rem; 
+  
+  @media (max-width: 600px) {
+    padding: 0.5rem;
+  }
 `;
 
 const Auth = () => {

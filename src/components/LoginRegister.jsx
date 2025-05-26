@@ -9,6 +9,12 @@ const Card = styled.div`
   box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 400px;
+  box-sizing: border-box;
+
+  @media (max-width: 450px) {
+    padding: 1rem;
+    max-width: 90vw;
+  }
 `;
 
 const Form = styled.form`
@@ -24,6 +30,10 @@ const Title = styled.h2`
   color: #2c3e50;
   text-align: center;
   font-weight: 700;
+
+  @media (max-width: 450px) {
+    font-size: 1.5rem;
+  }
 `;
 
 const Input = styled.input`
@@ -31,6 +41,11 @@ const Input = styled.input`
   border-radius: 8px;
   border: 1px solid #ccc;
   font-size: 1rem;
+  width: 100%;
+
+  @media (max-width: 450px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const Button = styled.button`
@@ -49,6 +64,10 @@ const Button = styled.button`
   &:hover:not(:disabled){
     background-color: #1f2923;
   }
+
+  @media (max-width: 450px) {
+    font-size: 0.9rem;
+  }
 `;
 
 const Toggle = styled.button`
@@ -59,6 +78,11 @@ const Toggle = styled.button`
   font-weight: bold;
   margin-top: 0.5rem;
   margin-left: 0.5rem;
+
+  @media (max-width: 450px) {
+    font-size: 0.9rem;
+    margin-left: 0;
+  }
 `;
 
 const ErrorText = styled.p`
