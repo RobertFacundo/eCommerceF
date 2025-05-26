@@ -165,9 +165,6 @@ src/
 Created by **Facundo Robert** – [GitHub](https://github.com/RobertFacundo)  
 Feel free to reach out for collaboration or feedback!
 
----
-
-
 ## 📄 License
 
 This project is licensed under the [MIT License](LICENSE).
